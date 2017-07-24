@@ -1,6 +1,6 @@
-*YBIGTA DEEP LEARNING 팀의 DEEP LEARNING 정리입니다.* <br>
+# YBIGTA DEEP LEARNING 팀의 DEEP LEARNING 정리입니다. <br>
 
-**구성원** <br>
+## **구성원** <br>
 이상헌
 조용래
 노혜미
