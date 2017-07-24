@@ -1,3 +1,4 @@
+YBIGTA 10기 노혜미 박승리 5기 조용래
 # RNTN을 이용한 Sentimental Semantic 분석
 
 ##  Recursive Neural Models
