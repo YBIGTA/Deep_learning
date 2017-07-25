@@ -39,7 +39,6 @@ YBIGTA 10기 노혜미
 
 ![with momentum](http://i.imgur.com/UgeumXK.gif)
 
-- 하지만 문제는 딱히 어디쓰면 좋다는 말은 찾지 못했다...
 
 ## Adagrad
 
@@ -62,10 +61,6 @@ YBIGTA 10기 노혜미
 
 ## AdagradDA
 
-- 빈도 수가 드문 데이터가 업데이트 룰에서 요구하는 것과 유사한 형태를 가질 때, 업데이트 시켜서 해당 데이터를 업데이트 시킨다. (추측...)
-
-This optimizer takes care of regularization of unseen features in a mini batch by updating them when they are seen with a closed form update rule that is equivalent to having updated them on every mini-batch.
-
 - Adagrad가 sparse data에 적합했던 것처럼, AdagradDA 역시 학습된 모델에서 large sparsity가 있을 때 필요하다. (데이터에 큰 구멍(?)이 뚫려있을 때 적합하다고 생각하면 될 것 같다.)
 - 다만 AdagradDA는 선형모델(linear models)에 대한 sparsity에만 적합하다.
 - 또 주의할 점은 학습시킬 때, gradient accumulator의 초기화를 잘해야 된다는 것이다.
@@ -78,12 +73,13 @@ This optimizer takes care of regularization of unseen features in a mini batch b
 - 유일한 차이는 cache라는 요소를 어떻게 계산하냐이다. 
 
 
-- 1 - (제곱된 gradient의 과거 합)을 현재 gradient로 본다.*
+- 1* - (제곱된 gradient의 과거 합)을 현재 gradient로 본다.*
 
 
 - 그래서 축적된 gradient가 평균 정도에서만 움직이기 때문에 발산할 일이 없다.
 
-*Adadelta는 cache를 어떻게 계산하는지 찾아봤지만 나오지 않았다...아마 RMSprop과 달리, 현재 구한 gradient를 그대로 넣는 방식이지 않을까 추측한다.
+* 여기서 1은 전체 데이터를 의미한다. 
+* Adadelta는 cache를 어떻게 계산하는지 찾아봤지만 나오지 않았다...아마 RMSprop과 달리, 현재 구한 gradient를 그대로 넣는 방식이지 않을까 추측한다.
 
 ## Adam
 
@@ -153,7 +149,7 @@ x,y축은 weight이고 z축은 loss이다.
 
 - 왠만하면 Adam을 쓰고 성능이 그렇게 좋지 않다면 Adadelta로도 한 번     써보는 것을 추천한다.
 - 자신이 sparse한 데이터를 갖고 있다면 Ada계열 혹은 RMSprop를 써보자.
-- 사실 많은 글 들에 이럴 때는 이런 걸 써라! 이런 식으로 나오지 않았다.      그래서 안내서지만, 정확한 가이드 라인을 제시하지 못 한 것 같다...
+- 사실 많은 글 들에 이럴 때는 이런 걸 써라! 이런 식으로 나오지 않았다.      그래서 안내서지만, 정확한 가이드 라인을 제시하지 못 한 것 같아 아쉽다...
 
 ## Rerference
 
