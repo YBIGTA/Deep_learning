@@ -1,0 +1,189 @@
+---
+title: "[GAN] First GAN"
+layout: post
+date: 2017-07-21 02:23
+image: assets/images/170721-first-gan/background.png
+headerImage: true
+tag:
+- deep learning
+- gan
+- ybigta
+- data science
+category: blog
+author: byunggyu
+description: GAN 논문 소개
+# jemoji: '<img class="emoji" title=":ramen:" alt=":ramen:" src="https://assets.github.com/images/icons/emoji/unicode/1f35c.png" height="20" width="20" align="absmiddle">'
+---
+
+<span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">
+## 요약
+
+연세대학교 빅데이터 학회 YBIGTA에서 앞으로 4주 동안, 주요 딥러닝 논문들을 쉽게 풀어 포스팅할 예정입니다. 오늘은 GAN 팀의 첫번째 논문 소개입니다.
+
+**목차**
+
+- [GAN?](#gan)
+- [Before GAN](#before-gan)
+- [Adversarial Nets](#adversarial-nets)
+- [How to Train](#how-to-train)
+- [Into Deep](#into-deep)
+- [Algorithm](#algorithm)
+
+---
+## GAN?
+GAN은 Generative Adversarial Nets를 일컫는 말이다. 2014년 Ian J. Goodfellow의 [논문](https://arxiv.org/pdf/1406.2661.pdf)에서 처음 소개되었으며 Facebook의 Yann Lecun이 최근 나온 기계학습 아이디어 중 최고라고 말하기도 했다.
+
+---
+## Before GAN
+
+기존의 딥러닝 모델은 Discriminative model에 초점을 맞추고 있었다. Discriminative model은 흔히 생각하는 Classifier를 생각하면 된다. 이미지 분류를 생각해보자. 3차원의 데이터-픽셀의 RGB값을 신경망에 넣으면 일련의 연산을 통해 이미지가 어떤 class에 속하는지를 뱉어낸다. 즉 고차원적이고 복잡한 input을 class의 label로 매핑하는 것이 가능해진 것이다.
+
+이러한 성공이 가능했던 것은 ReLU나, backpropagation, dropout 알고리즘의 등장이 기여했다.
+하지만 Generative model은 딥러닝과 거리가 멀었다. 이는
+- Generative model에서 필요한 확률 계산의 어려움과
+- Generative model에서 ReLU를 적용하는데 어려움
+
+때문이었다.
+
+---
+## Adversarial Nets
+
+Ian Goodfellow는 다층신경망(Multilayer Perceptron, 이하 MLP) 즉 딥러닝을 Generative model에 적용할 수 있다고 주장한다. 무작위로 만들어낸 noise를 Generative model에 전달하고, 이 값이 신경망을 거치면서, 샘플을 만들어내는 것이다.
+
+또한 위에서 언급했듯, 이미 성공적인 Deep *Discriminative* model을 함께 적용한다. 이렇게하면, 두 모델을 backpropagation과 dropout만으로 효율적으로 학습시킬 수 있게 된다.
+
+이러한 관계를 adversarial nets라고 부른다.
+
+---
+## How to Train
+
+Goodfellow는 Generative model과 Discriminative model의 adversary한 관계에서 두 모델이 성장할 수 있다고 주장한다.
+
+- Generative model $${G}$$는 데이터의 분포를 파악하고 이를 모방한다.
+- Discriminative model $${D}$$는 어떠한 샘플을 보고 실제 데이터에서 그것이 나왔을 확률, 즉 $${G}$$가 만들지 않았을 확률을 추정한다.
+
+Goodfellow는 둘의 관계를 이러한 비유를 통해 설명한다.
+
+- Generative model은 위조지폐범이다. 위조지폐를 만들고 들키지 않게 사용하는 것이 목적이다.
+- Discriminative model은 경찰이다. 위조지폐를 탐지하기 위해 노력한다.
+
+이 둘이 경쟁하며 서로 학습, 발전하게 되고, 결국 위조지폐와 진짜를 구분할 수 없을 때까지 학습이 진행되는 것이다.
+
+이때 $${G}$$를 학습시키려면 어떻게 해야할까? $${D}$$가 실수할 확률, 즉 $${G}$$가 샘플을 만들었지만, 실제 데이터에서 샘플이 만들어졌다고 추정할 확률을 최대화하면 되는 것이다. 이를 minimax two-player game과 같다고 설명한다.
+
+#### What is MINIMAX?
+
+위에서 Minimax for two-player games를 최소화한다고 했다. 이때 minimax는
+
+> 추정되는 최대의 손실을 최소화하는 기법
+
+을 말한다.
+예시를 통해 조금더 자세히 알아보자.
+
+> 1943년 연합국은 일본 수송대가 병력을 실고 이동하고 있다는 정보를 입수했다. 수송대는 두가지 - 북쪽과 남쪽 루트를 선택할 수 있다. 가능한 빨리 수송대를 찾기 위해 연합국은 정찰기를 북쪽으로 보낼지 남쪽으로 보낼지를 선택해야만 한다.
+
+다음 표는 일본군과 연합국이 내릴 수 있는 결정과 각 경우에 따른 폭격의 지속시간을 나타낸 것이다.
+  <center>
+  <table border="0">
+  <tbody>
+    <tr>
+    <td colspan="2"><p></p></td>
+    <td colspan="2" align="center"><p></p><center>일본군의 경로</center></td>
+    </tr>
+    <tr>
+    <td colspan="2"><p></p></td>
+    <td><p>북쪽</p></td>
+    <td><p>남쪽</p></td>
+    </tr>
+    <tr>
+    <td rowspan="2"><p>연합군 정찰기</p></td>
+    <td><p>북쪽</p></td>
+    <td align="right"><p align="RIGHT">2</p></td>
+    <td align="right"><p align="RIGHT">2</p></td>
+    </tr>
+    <tr>
+    <td><p>남쪽</p></td>
+    <td align="right"><p align="RIGHT">1</p></td>
+    <td align="right"><p align="RIGHT">3</p></td>
+    </tr>
+    </tbody>
+</table>
+</center>
+
+이 표에 따르면 일본군이 남쪽으로 가고, 연합군이 북쪽으로 정찰기를 보낸다면, 수송대가 2일 동안 폭격을 받을 것임을 나타낸다.
+
+연합군에게 최고의 결과는 정찰기를 남쪽으로 보냈을 때, 일본군 또한 남쪽으로 이동하는 경우이며, 일본군에게 최고의 결과는 수송대가 북쪽으로 이동했을때, 정찰기가 남쪽으로 갔을 때이다.
+
+가능한 최악의 결과를 최소화하기 위해, 연합군은 정찰기를 북쪽으로 보내야만 한다.
+- 이는 최소한 2일의 폭격은 보장한다
+- 또한 남쪽에 집중했을 때보다 하루 밖에 손해를 안본다.
+
+일본군 또한 비슷한 전략을 사용한다. 최악의 결과는 남쪽으로 갔을 때 3일간의 폭격이므로, 일본군 또한 북쪽으로 갈 것이다.
+
+즉 이렇게 최악의 결과를 최소화하는 것이 minimax인 것이다.
+
+[Reference](https://cs.stanford.edu/people/eroberts/courses/soco/projects/1998-99/game-theory/Minimax.html)
+
+---
+## Into Deep
+
+조금 더 자세히 알아보자. $${G}$$는 데이터의 분포를 모방하는 것이 목표라고 했다. 즉 어떤 데이터 $${x}$$가 주어졌을 때 이 데이터 $${x}$$의 분포, $${p_x}$$를 모방해야하는 것이다.
+
+우선 noise variable $${z}$$를 정의한다. 이때 $${z}$$ 또한 어떠한 확률 분포 $${p_z}$$를 따를 것이다. 이렇게 noise variable을 추출하는 것을 $${p_z(z)}$$라고 할 수 있다.
+이렇게 추출한 $${z}$$를 Generative model이 따르는 확률분포 $${p_g}$$로 매핑할 수 있게 된다. 이 과정을 MLP로 구현한다. 즉 $${G(z;\theta_d)}$$($${\theta_d}$$는 MLP $${G}$$의 parameter)는 $${z}$$를 sample로 만드는 신경망이 되는 것이다.
+
+또 Discriminative model을 MLP로 만들 수 있다. $${D(x;\theta_d)}$$라고 표현할 수 있다. 이때 위에서 $${D}$$는 어떠한 sample이 실제 데이터에서 나왔을 확률을 추정한다고 했으므로 $${D}$$의 output은 한개의 값, 즉 확률이 된다. 다시 말하자면 $${D(x)}$$는 $${x}$$가 $${p_g}$$, 곧 $${G}$$에서 만들어진 것이 아닌 실제 데이터에서 추출했다고 판단할 확률을 나타내는 것이다.
+
+학습과정에 대해 조금 더 자세히 알아보자. $${D}$$가 실제 데이터와 $${G}$$가 만든 가짜 데이터를 잘 구분하도록 학습시켜야한다. 또한 이와 동시에  $$\log(1-{D(G(z))})$$를 최소화하도록 훈련시킨다.
+
+이를 다르게 표현하자면 $${D}$$와 $${G}$$는 value function $${V(G, D)}$$로 표현되는 two-player minimax game을 하는 것과 같다:
+$$\min_{G}\max_{D}{V(D,G)} = \mathbb{E}_{x\sim p_{data}(x)}[logD(x)] + \mathbb{E}_{z\sim p_z(z)}[log(1-D(G(z)))].\qquad(1)$$
+이다.
+
+이를 하나하나 뜯어보자.
+
+$${\mathbb{E}_{x\sim p_{data}(x)}[logD(x)]}$$는 실제 데이터 $${x}$$를 $${D}$$가 보고 실제 데이터라고 판단할 확률을 의미한다. $${D}$$의 입장에서 보자면 당연히 실제 데이터를 실제 데이터라고 판단할 확률을 최대화해야한다. 반대로 ${G}$의 입장에서는 $${D}$$가 실수를 하도록 해야하므로 저 확률을 최소화해야하는 것이다.
+
+$$\mathbb{E}_{z\sim p_z(z)}[log(1-D(G(z)))]$$은 $${G}$$가 만들어낸 데이터를 ${D}$가 가짜라고 판단할 확률을 의미한다. 당연히 $${D}$$의 입장에서는 이 값을 최대화해야하며 $${G}$$의 입장에서는 이 값을 최소화해야하는 것이다.
+
+$${G}$$와 $${D}$$가 충분한 시간동안 학습이 된다면 $${G}$$가 실제 데이터의 분포를 따르게 할 수 있다. 이렇게 된다면 $${D(x)}$$는 어떠한 데이터를 보든, $$\frac{1}{2}$$의 확률로 맞거나 틀릴 것이다.
+
+![training](/assets/images/170721-first-gan/training.png)
+Discriminative distribution(${D}$, 파란 점선)을 data generating distribution(검정) ${p_x}$와 generative distribution ${p_g}$(초록)에서 만들어지는 가짜를 구분하도록 학습시킨다.
+
+밑의 직선은 $${z}$$가 sampling되는 정의역을 나타낸다. 위의 직선은 $${x}$$ 정의역의 일부이다. $${z}$$에서 $${x}$$로 가는 화살표는 noise $${z}$$를 $${G}$$에 넣어 샘플을 만드는 과정이라고 생각할 수 있다. 이때 $${G}$$가 확률분포 non-uniform $${p_g}$$를 따른다는 것에 주의해야한다.
+
+$${G}$$는 $${p_g}$$가 큰 값을 가지는 영역에서 수축하고, 작은 값을 가지는 영역에서 팽창한다.
+
+(a)수렴하기 직전의 adversarial pair, $${p_g}$$와 $${p_d}$$를 생각해보자. $${p_g}$$는 $${p_{data}}$$와 거의 유사하며, $${D}$$는 거의 정확한 classifier이다.
+
+(b) k번 동안 $${D}$$는 sample과 실제 데이터를 구분하도록 학습한다. 이때 $${D^*(x)}$$ = $$\frac {p_{data}(x)}{p_{data}(x) + p_g(x)}$$로 수렴하게 된다.
+
+(c)$${G}$$를 학습시킨 다음, $${D}$$의 gradient가 $${G(z)}$$를 실제 데이터라고 분류되도록 이동시킨다.
+
+(d)충분한 학습이 진행된 다음 $${p_g = p_{data}}$$이므로 더이상 학습이 진행될 수 없는 상태에 도달한다. 이후 discriminative model은 두 분포를 구분할 수 없게 된다. 따라서 $${D(x)} = \frac{1}{2}$$가 된다.
+
+---
+## Algorithm
+
+![algorithm](/assets/images/170721-first-gan/algorithm.png)
+
+> 이때 $${D}$$는 식을 최대화하도록, $${G}$$는 식을 최소화하도록 훈련한다는 것에 주의하자
+
+1. m개의 가짜 데이터를 $${p_z}$$에서 뽑아낸다.
+2. m개의 진짜 데이터를 $${p_{data}}$$에서 뽑아낸다.
+3. $${D}$$를 학습시킨다.
+4. 위 과정을 k번 반복한다.
+5. m개의 가짜 데이터를 $${p_z}$$에서 뽑아낸다.
+6. $${G}$$를 학습시킨다.
+7. 1로 돌아간다
+
+학습과정에서 $${k}$$번동안 $${D}$$를 최적화하고, 이후 $${G}$$를 최적화하는 과정을 한 번 시행하는 것을 반복한다. 이로 인해 $${G}$$가 천천히 변화하는 동안 $${D}$$가 최적의 상태를 유지하도록 한다.
+
+이때 학습 초기에 식 1은 $${G}$$를 적절히 학습시킬 수 있는 gradient를 주지 못한다. $${G}$$는 실제 데이터와 많은 차이가 있게 되고, $${D}$$는 쉽게 sample을 구분할 수 있게 된다. 이러한 경우 $$log(1-D(G(z)))$$은 saturate하게 된다.
+
+<h4>saturate?</h4> 활성화 함수로 sigmoid를 가지는 아주 깊은 MLP의 경우를 생각해보자. 학습을 거치며 값들은 0이나 1에 가까워지게 되고 vanishing gradient문제가 발생하게 된다. 따라서 더이상 학습이 진행되지 않거나, 아주 느리게 진행된다. 이러한 경우를 neuron이 saturate되었다고 한다.
+
+즉 학습이 적절하게 일어나지 않을 수도 있다. 따라서 $$[log(1-D(G(z)))]$$를 최소화하는 대신, $$log{D(G(z))}$$를 최대화하도록 학습시킨다.
+
+---
