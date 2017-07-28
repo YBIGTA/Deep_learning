@@ -160,7 +160,7 @@ lr = 0.0002
 d_optimizer = torch.optim.Adam(discriminator.parameters(), lr=lr)
 g_optimizer = torch.optim.Adam(generator.parameters(), lr=lr)     
 ~~~
-<br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 
 
 #### Loss 계산 및 Training<br>
