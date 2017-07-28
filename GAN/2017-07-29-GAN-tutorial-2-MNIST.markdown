@@ -150,7 +150,7 @@ generator = Generator().cuda()
 #### Optimizer 설정
 1)&nbsp;Loss function<br>
 class가 두 개인 classification에서 사용되는 loss function인 BCELoss를 사용하였습니다. 이 모델에서 class는 진짜 / 가짜 두 개 입니다.
-<br>
+<br><br>
 2) Optimizer<br>
 만능 옵티마이저 Adam을 사용했습니다.<br>
 
