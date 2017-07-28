@@ -164,20 +164,19 @@ g_optimizer = torch.optim.Adam(generator.parameters(), lr=lr)
 #### Loss 계산 및 Training
 에 대해 설명하기에 앞서, label에 대해 짚고 넘어갑시다. Discriminator에게 있어서 이 문제는 양자택일의 classification 문제입니다. 진짜, 가짜 두 가지의 class가 존재하는 것입니다. 이 때 진짜를 1, 가짜를 0이라는 label을 달아줍니다. 이 부분에 해당하는 코드는 조금 뒤에 확인할 것입니다. 다시, Discriminator와 Generator를 학습시키는 함수를 살펴봅시다.
 
-1. Discriminator
+1. Discriminator<br>
 앞서 살펴 보았듯, Discriminator에 이미지들의 minibatch를 집어넣으면 해당 이미지가 실제 이미지일 확률이 표현된 확률 벡터가 반환됩니다. 100개 이미지를 넣으면 각각의 이미지가 실제 이미지일 확률이 100개 나온다는 뜻입니다. Discriminator는 이 확률값과 input의 label을 비교하며 loss를 계산합니다.
 <br>
-    * 먼저 실제 이미지들을 Discriminator에 넣어봅니다. 결과값으로 실제 이미지일 확률 벡터가 나옵니다. 이를 모든 element가 실제 이미지의 label(1)인 벡터와 비교하여 BCELoss를 계산합니다.
-    * 다음으로 fake 이미지들을 Discriminator에 넣어봅니다. 결과값으로 실제 이미지일 확률 벡터가 나옵니다. 이를 모든 element가 fake 이미지의 label(0)인 벡터와 비교하여 BCELoss를 계산합니다.
-    * 두 loss를 더해주면 Discriminator의 최종 loss가 됩니다. 이를 역전파하고 parameter를 update 합니다.
+    * 먼저 실제 이미지들을 Discriminator에 넣어봅니다. 결과값으로 실제 이미지일 확률 벡터가 나옵니다. 이를 모든 element가 실제 이미지의 label(1)인 벡터와 비교하여 BCELoss를 계산합니다.<br>
+    * 다음으로 fake 이미지들을 Discriminator에 넣어봅니다. 결과값으로 실제 이미지일 확률 벡터가 나옵니다. 이를 모든 element가 fake 이미지의 label(0)인 벡터와 비교하여 BCELoss를 계산합니다.<br>
+    * 두 loss를 더해주면 Discriminator의 최종 loss가 됩니다. 이를 역전파하고 parameter를 update 합니다.<br>
 <br>
-2. Generator
+2. Generator<br>
 Generator의 학습 과정은 아래와 같습니다.
 <br>
-    * 자기가 만든 fake 이미지들을 Discriminator에 넣어봅니다.
-    * 그럼 마찬가지로 Discriminator가 판단하기에 각각의 이미지가 실제 이미지일 확률이 반환됩니다.
-    * Generator의 목적은 Discriminator가 가짜 이미지를 진짜 이미지라고 착각하게 만드는 것입니다. 따라서 아까 계산된 확률값을 실제 이미지 레이블(1)로 구성된 벡터와 비교하여 BCELoss를 계산합니다. 다시 말하자면, fake 이미지를 집어넣어놓고 마치 이게 실제 이미지였던 것 마냥 loss를 계산하고, 학습하는 것입니다. 이러한 Generator의 loss를 최소화 하는 과정에서 fake 이미지들이 실제 이미지와 유사해집니다.
-
+    * 자기가 만든 fake 이미지들을 Discriminator에 넣어봅니다.<br>
+    * 그럼 마찬가지로 Discriminator가 판단하기에 각각의 이미지가 실제 이미지일 확률이 반환됩니다.<br>
+    * Generator의 목적은 Discriminator가 가짜 이미지를 진짜 이미지라고 착각하게 만드는 것입니다. 따라서 아까 계산된 확률값을 실제 이미지 레이블(1)로 구성된 벡터와 비교하여 BCELoss를 계산합니다. 다시 말하자면, fake 이미지를 집어넣어놓고 마치 이게 실제 이미지였던 것 마냥 loss를 계산하고, 학습하는 것입니다. 이러한 Generator의 loss를 최소화 하는 과정에서 fake 이미지들이 실제 이미지와 유사해집니다.<br>
 
 
 ~~~python
