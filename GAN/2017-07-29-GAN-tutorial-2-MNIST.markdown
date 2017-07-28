@@ -161,6 +161,8 @@ d_optimizer = torch.optim.Adam(discriminator.parameters(), lr=lr)
 g_optimizer = torch.optim.Adam(generator.parameters(), lr=lr)     
 ~~~
 <br>
+
+
 #### Loss 계산 및 Training<br>
 에 대해 설명하기에 앞서, label에 대해 짚고 넘어갑시다. Discriminator에게 있어서 이 문제는 양자택일의 classification 문제입니다. 진짜, 가짜 두 가지의 class가 존재하는 것입니다. 이 때 진짜를 1, 가짜를 0이라는 label을 달아줍니다. 이 부분에 해당하는 코드는 조금 뒤에 확인할 것입니다. 다시, Discriminator와 Generator를 학습시키는 함수를 살펴봅시다.<br>
 <br>
