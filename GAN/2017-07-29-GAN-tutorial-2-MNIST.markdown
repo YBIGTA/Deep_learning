@@ -19,8 +19,9 @@ MNIST 정도의 데이터는 로컬에서도 돌아갑니다. 시간이 많이 �
 - **Pytorch** 0.1.12
 
 코드의 기본적인 WorkFlow는 아래와 같습니다.
+<br>
+<br>
 
----
 
 ## Workflow
 1. 실제 이미지들과 fake 이미지들을 샘플링합니다.<br><br>
@@ -50,12 +51,9 @@ MNIST 정도의 데이터는 로컬에서도 돌아갑니다. 시간이 많이 �
 
 4. Generator가 만든 fake 이미지를 저장합니다.
 
+<br>
+<br>
 
-
-
-
-
----
 ## Modeling
 
 #### 필요한 모듈 불러오기
@@ -292,7 +290,9 @@ for epoch in range(num_epochs):
             tracking_dict["fake_score"].append(fake_score.data.mean())
 ~~~
 
----
+<br>
+<br>
+
 ## Result
 
 학습과정에서  Discriminator와 Generator의 loss는 아래와 같은 흐름을 보였습니다.
@@ -311,9 +311,10 @@ for epoch in range(num_epochs):
 
 [![](https://i.ytimg.com/vi/ndhZg6gJ6bs/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCuYE1oGaBp_0CQJQIggG6SwnFLiQ)](https://www.youtube.com/watch?v=ndhZg6gJ6bs)
 
----
+<br>
+<br>
+
 ## Reference
 [GAN pytorch code]
  [https://github.com/prcastro/pytorch-gan/blob/master/MNIST%20GAN.ipynb](https://github.com/prcastro/pytorch-gan/blob/master/MNIST%20GAN.ipynb)
 
----
