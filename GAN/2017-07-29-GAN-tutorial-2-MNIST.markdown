@@ -148,11 +148,12 @@ generator = Generator().cuda()
 ~~~
 
 #### Optimizer 설정
-1) Loss function
+1) Loss function<br>
 class가 두 개인 classification에서 사용되는 loss function인 BCELoss를 사용하였습니다. 이 모델에서 class는 진짜 / 가짜 두 개 입니다.
 <br>
-2) Optimizer
-만능 옵티마이저 Adam을 사용했습니다.
+2) Optimizer<br>
+만능 옵티마이저 Adam을 사용했습니다.<br>
+
 ~~~python
 criterion = nn.BCELoss()      
 lr = 0.0002
@@ -303,8 +304,10 @@ for epoch in range(num_epochs):
 <img src = "https://scontent-hkg3-2.xx.fbcdn.net/v/t1.0-9/20294465_1542404345824403_8046657392976649940_n.jpg?oh=e543ccd10bc8d519c66bf72c9c6fc645&oe=59FCF6F6"></img>
 <br>
 
-아래는 맨 마지막 스텝에서 생성된 이미지입니다. 약간 어설픈 결과물도 있긴 하지만 대체로 사람이 쓴 글씨같은 느낌이긴 합니다. 아마 단순 FC Layer 대신에 Convolution Layer를 집어넣으면 결과물이 개선될 수 있지 않을까 싶습니다. 그게 나중에 저희가 배울 DCGAN이겠죠?
+아래는 맨 마지막 스텝에서 생성된 이미지입니다. 약간 어설픈 결과물도 있긴 하지만 대체로 사람이 쓴 글씨같은 느낌이긴 합니다.
 <img src = "https://scontent-hkg3-2.xx.fbcdn.net/v/t1.0-9/20476462_1542405222490982_2332763144594297743_n.jpg?oh=88dccb2aa99a88bed1220d50437fb571&oe=59FF28BC">
+
+아마 단순 FC Layer 대신에 Convolution Layer를 집어넣으면 결과물이 개선될 수 있지 않을까 싶습니다. 그게 나중에 저희가 배울 DCGAN이겠죠?
 
 아래는 Generator가 생성한 이미지들이 어떻게 변화해가는 지 보여주는 동영상입니다.
 
