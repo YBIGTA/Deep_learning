@@ -2,7 +2,7 @@
 title: "[GAN] DCGAN 논문 이해하기"
 layout: post
 date: 2017-08-03 20:30
-image: /assets/images/2017-08-03-DCGAN-paper-reading/background.png
+image: assets/images/2017-08-03-DCGAN-paper-reading/background.png
 headerImage: true
 tag:
 - gan
@@ -36,7 +36,7 @@ description: DCGAN 논문 처음부터 끝까지 차근차근 이해하기
 
 ---
 ## GAN Review
-![gan-workflow](/assets/images/2017-08-03-DCGAN-paper-reading/gan-workflow.jpg)
+![gan-workflow](assets/images/2017-08-03-DCGAN-paper-reading/gan-workflow.jpg)
 
 > [[GAN] First GAN](https://angrypark.github.io/First-GAN/)
 [[GAN] 1D Gaussian Distribution Generation](https://angrypark.github.io/GAN-tutorial-1/)
@@ -69,17 +69,17 @@ GAN과 DCGAN의 전체적인 구조는 거의 유사하다. 다만 각각의 Dis
 쉽게 말하면 엄청난 노가다(?) 끝에 안정적이고 더 성능이 향상된 결과를 찾게 되었다는 말이다.
 
 #### 기존 GAN Architecture
-기존 GAN은 자세히 살펴보면 다음과 같은 아주 간단하게 fully-connected로 연결되어 있다. ![gan-architecture](/assets/images/2017-08-03-DCGAN-paper-reading/gan-architecture.png)
+기존 GAN은 자세히 살펴보면 다음과 같은 아주 간단하게 fully-connected로 연결되어 있다. ![gan-architecture](assets/images/2017-08-03-DCGAN-paper-reading/gan-architecture.png)
 
 #### CNN Architecture
 CNN은 이러한 fully-connected 구조 대신에 convolution, pooling, padding을 활용하여 레이어를 구성한다.
 
-![cnn-architecture](/assets/images/2017-08-03-DCGAN-paper-reading/cnn-architecture.png)
+![cnn-architecture](assets/images/2017-08-03-DCGAN-paper-reading/cnn-architecture.png)
 
 #### DCGAN Architecture
 DCGAN은 결국, 기존 GAN에 존재했던 fully-connected구조의 대부분을 CNN 구조로 대체한 것인데, 앞서 언급했던 것처럼 엄청난 시도들 끝에 다음과 같이 구조를 결정하게 되었다.
 
-![architecture-guidelines](/assets/images/2017-08-03-DCGAN-paper-reading/architecture-guidelines.png)
+![architecture-guidelines](assets/images/2017-08-03-DCGAN-paper-reading/architecture-guidelines.png)
 
 - Discriminator에서는 모든 pooling layers를 **strided convolutions** 로 바꾸고, Generator에서는 pooling layers를 **fractional-strided convolutions** 으로 바꾼다.
 
@@ -92,10 +92,10 @@ DCGAN은 결국, 기존 GAN에 존재했던 fully-connected구조의 대부분�
 - Discriminator에서는 모든 활성화 함수를 LeakyRelu를 쓴다.
 
 > **Strided convolutions?**
-![padding-strides](/assets/images/2017-08-03-DCGAN-paper-reading/padding_strides.gif)
+![padding-strides](assets/images/2017-08-03-DCGAN-paper-reading/padding_strides.gif)
 
 > **Fractionally-strided convolutions?**
-![padding-strides-transposed](/assets/images/2017-08-03-DCGAN-paper-reading/padding_strides_transposed.gif)
+![padding-strides-transposed](assets/images/2017-08-03-DCGAN-paper-reading/padding_strides_transposed.gif)
 논문을 읽으며 가장 이해가 안되었던 부분인데, 기존의 convolutions는 필터를 거치며 크기가 작아진 반면에, fractionally-strided convolutions은 input에 padding을 하고 convolution을 하면서 오히려 크기가 더 커지는 특징이 있다. 쉽게 transposed convolution이라고도 불리고, deconvolution이라고도 불리는데, deconvolution는 잘못된 단어라고 한다.
 
 > **Batch-normalization?**
@@ -107,25 +107,25 @@ Batch Normalization은 2015년 arXiv에 발표된 후 ICML 2015 (마찬가지로
 ## Generator Model
 위에서 설명된 Generator의 구조를 시각화하면 다음과 같다.
 
-![generator-model](/assets/images/2017-08-03-DCGAN-paper-reading/generator-model.png)
+![generator-model](assets/images/2017-08-03-DCGAN-paper-reading/generator-model.png)
 
 100 dimensional uniform distribution(Z)이 들어오면 이들이 4개의 fractionally-strided convolution layer을 거치며 크기를 키워서 더 높은 차원의 64x64 pixel 이미지가 된다.
 
 ---
 ## Visualization
 #### Generated bedrooms
-![Visualization](/assets/images/2017-08-03-DCGAN-paper-reading/visualization-1.png)
+![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-1.png)
 
 #### Walking in the latent space
-![Visualization](/assets/images/2017-08-03-DCGAN-paper-reading/visualization-2.png)
+![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-2.png)
 
 앞서 DCGAN의 목표들 중 하나인 walking in the latent space를 직접 구현한 그림이다.
 
 #### Visualize filters (no longer black-box)
-![Visualization](/assets/images/2017-08-03-DCGAN-paper-reading/visualization-3.png)
+![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-3.png)
 
 #### Applying arithmetic in the input space
-![Visualization](/assets/images/2017-08-03-DCGAN-paper-reading/visualization-4.png)
+![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-4.png)
 
 ---
 ## Reference
