@@ -2,7 +2,7 @@
 title: "[GAN] DCGAN 논문 이해하기"
 layout: post
 date: 2017-08-03 20:30
-image: assets/images/2017-08-03-DCGAN-paper-reading/background.png
+image: assets/images/2017-08-03-DCGAN-paper-reading/background.jpg
 headerImage: true
 tag:
 - gan
@@ -29,6 +29,7 @@ description: DCGAN 논문 처음부터 끝까지 차근차근 이해하기
 
 - [GAN Review](#gan-review)
 - [기존 GAN의 한계](#기존-gan의-한계)
+- [DCGAN의 목표](#dcgan의-목표)
 - [Architecture Guidelines](#architecture-guidelines)
 - [Generator Model](#generator-model)
 - [Visualization](#visualization)
@@ -57,9 +58,8 @@ GAN은 결과물 자체가 **새롭게 만들어진 Sample** 이다. 이를 기�
 
 ---
 ## DCGAN의 목표
-#### Generator가 단순 기억으로 generate하지 않는다는 것을 보여줘야 한다.
-
-#### z의 미세한 변동에 따른 generate결과가 연속적으로 부드럽게 이루어져야 한다.
+> **1. Generator가 단순 기억으로 generate하지 않는다는 것을 보여줘야 한다.**
+**2. z의 미세한 변동에 따른 generate결과가 연속적으로 부드럽게 이루어져야 한다(이를 walking in the latent space라고 한다).**
 
 ---
 ## Architecture Guidelines
@@ -91,15 +91,21 @@ DCGAN은 결국, 기존 GAN에 존재했던 fully-connected구조의 대부분�
 
 - Discriminator에서는 모든 활성화 함수를 LeakyRelu를 쓴다.
 
-> **Strided convolutions?**
+---
+
+**- Strided convolutions?**
 ![padding-strides](assets/images/2017-08-03-DCGAN-paper-reading/padding_strides.gif)
 
-> **Fractionally-strided convolutions?**
+---
+
+**- Fractionally-strided convolutions?**
 ![padding-strides-transposed](assets/images/2017-08-03-DCGAN-paper-reading/padding_strides_transposed.gif)
 논문을 읽으며 가장 이해가 안되었던 부분인데, 기존의 convolutions는 필터를 거치며 크기가 작아진 반면에, fractionally-strided convolutions은 input에 padding을 하고 convolution을 하면서 오히려 크기가 더 커지는 특징이 있다. 쉽게 transposed convolution이라고도 불리고, deconvolution이라고도 불리는데, deconvolution는 잘못된 단어라고 한다.
 
-> **Batch-normalization?**
-Batch Normalization은 2015년 arXiv에 발표된 후 ICML 2015 (마찬가지로 매우 권위 있는 머신러닝 학회)에 publish 된 이 논문 ([Batch Normalization : Accelerating Deep Network Training by Reducing Internal Covariance Shift](http://arxiv.org/abs/1502.03167)) 에 설명되어 있는 기법으로, 발표된 후 최근에는 거의 모든 인공신경망에 쓰이고 있는 기법이다. 기본적으로 Gradient Vanishing / Gradient Exploding 이 일어나지 않도록 하는 아이디어 중의 하나이며, 지금까지는 이 문제를 Activation 함수의 변화 (ReLU 등), Careful Initialization, small learning rate 등으로 해결하였지만, 이 논문에서는 이러한 간접적인 방법보다 training 하는 과정 자체를 전체적으로 안정화하여 학습 속도를 가속시킬 수 있는 근본적인 방법을 제안하였다.
+---
+
+**- Batch-normalization?**
+Batch Normalization은 2015년 arXiv에 발표된 후 ICML 2015에 publish 된 이 논문 ([Batch Normalization : Accelerating Deep Network Training by Reducing Internal Covariance Shift](http://arxiv.org/abs/1502.03167)) 에 설명되어 있는 기법으로, 발표된 후 최근에는 거의 모든 인공신경망에 쓰이고 있는 기법이다. 기본적으로 Gradient Vanishing / Gradient Exploding 이 일어나지 않도록 하는 아이디어 중의 하나이며, 지금까지는 이 문제를 Activation 함수의 변화 (ReLU 등), Careful Initialization, small learning rate 등으로 해결하였지만, 이 논문에서는 이러한 간접적인 방법보다 training 하는 과정 자체를 전체적으로 안정화하여 학습 속도를 가속시킬 수 있는 근본적인 방법을 제안하였다.
 더 자세한 내용은 다음 포스트를 참고하길 바란다.
 [Batch Normalization 설명 및 구현](https://shuuki4.wordpress.com/2016/01/13/batch-normalization-%EC%84%A4%EB%AA%85-%EB%B0%8F-%EA%B5%AC%ED%98%84/)
 
@@ -116,18 +122,33 @@ Batch Normalization은 2015년 arXiv에 발표된 후 ICML 2015 (마찬가지로
 #### Generated bedrooms
 ![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-1.png)
 
+---
+
 #### Walking in the latent space
 ![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-2.png)
 
 앞서 DCGAN의 목표들 중 하나인 walking in the latent space를 직접 구현한 그림이다.
 
+---
+
 #### Visualize filters (no longer black-box)
 ![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-3.png)
 
+---
+
 #### Applying arithmetic in the input space
-![Visualization](assets/images/2017-08-03-DCGAN-paper-reading/visualization-4.png)
+![Visualization](/assets/images/2017-08-03-DCGAN-paper-reading/visualization-4.png)
 
 ---
 ## Reference
+[Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks - Alec Radford el ec, 2016](https://arxiv.org/abs/1511.06434)
+
+[초짜 대학원생의 입장에서 이해하는 Deep Convolutional Generative Adversarial Network (DCGAN) (1)](http://jaejunyoo.blogspot.com/2017/02/deep-convolutional-gan-dcgan-1.html)
+
+[초짜 대학원생의 입장에서 이해하는 Deep Convolutional Generative Adversarial Network (DCGAN) (2)](http://jaejunyoo.blogspot.com/2017/02/deep-convolutional-gan-dcgan-2.html)
+
+[김태훈: 지적 대화를 위한 깊고 넓은 딥러닝 (Feat. TensorFlow) - PyCon APAC 2016](https://www.youtube.com/watch?v=soJ-wDOSCf4&t=890s)
+
+[Batch Normalization 설명 및 구현](https://shuuki4.wordpress.com/2016/01/13/batch-normalization-%EC%84%A4%EB%AA%85-%EB%B0%8F-%EA%B5%AC%ED%98%84/)
 
 ---
