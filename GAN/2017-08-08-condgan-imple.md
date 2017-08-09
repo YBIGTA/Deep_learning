@@ -45,7 +45,7 @@ import os
 %matplotlib inline
 ```
 
-우리는 pytorch를 사용할 것이므로 pytorch를 가져옵니다. 이때 왜 tensorflow의 mnist를 가져오는지 궁금해하실 수도 있을 것 같은데요, y를 사용하기 위해서는 label들을 one-hot vector로 만들어주는 것이 좋습니다. 손글씨 숫자는 0~9의 label을 가지겠죠? 만약 어떤 데이터가 3이었다면, [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]의 값을 가지게 되는 것입니다. pytorch의 dataset에도 MNIST가 있지만, 이를 one-hot vector로 만들어주는 과정이 조금 지저분해서 tensorflow의 dataset을 이용하고자 합니다.
+우리는 pytorch를 사용할 것이므로 pytorch를 가져옵니다. 이때 왜 tensorflow의 mnist를 가져오는지 궁금해하실 수도 있을 것 같은데요, y를 사용하기 위해서는 label들을 one-hot vector로 만들어주는 것이 좋습니다. MNIST 데이터는 손으로 쓴 숫자들입니다. 손글씨 숫자는 0~9의 label을 가지겠죠? 만약 어떤 데이터가 3이었다면, [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]의 값을 가지게 되는 것입니다. pytorch의 dataset에도 MNIST가 있지만, 이를 one-hot vector로 만들어주는 과정이 조금 지저분해서 tensorflow의 dataset을 이용하고자 합니다.
 
 ```python
 mnist = input_data.read_data_sets('../../data', one_hot=True)
@@ -82,7 +82,8 @@ class Discriminator(nn.Module):
             nn.Sigmoid()
         )
     def forward(self, x, y):
-        x = x.view(x.size(0), 784)
+        # x는 minibatch x 1(채널 수) x 28 x 28(가로, 세로)입니다
+        x = x.view(x.size(0), 784) # x를 minibatch x 784로 바꿔줍니다
         out = self.model(torch.cat([x,y], 1))
         out = out.view(out.size(0), -1)
         return out
@@ -120,7 +121,7 @@ class Generator(nn.Module):
         out = self.map(torch.cat([z, y], 1))
         return out
 ```
-noise 값은 100고 원하는 데이터를 만들어줘야하므로 label을 포함해야합니다. 따라서 100+10차원의 값들을 첫번째 layer에서 처리합니다. 이미지는 784개의 값들을 가지므로, 마지막 layer에서는 784개의 값들을 만들어내도록 합니다. 여기서도 Discriminator처럼 Dropout을 적용했습니다.
+noise 값은 100고 원하는 데이터를 만들어줘야 하므로 label을 포함해야합니다. 따라서 100+10차원의 값들을 첫번째 layer에서 처리합니다. 이미지는 784개의 값들을 가지므로, 마지막 layer에서는 784개의 값들을 만들어내도록 합니다. 여기서도 Discriminator처럼 Dropout을 적용했습니다.
 
 ```python
 discriminator = Discriminator()
@@ -131,7 +132,7 @@ lr = 0.0002
 d_optimizer = torch.optim.Adam(discriminator.parameters(), lr=lr)
 g_optimizer = torch.optim.Adam(generator.parameters(), lr=lr)
 ```
-그리고 모델과 loss, 최적화방법을 선언합시다. 0이면 가짜, 1이면 진짜를 구분하는 것이므로 loss는 BCELoss로 했습니다. 또한 Optimizer는 Adam을 사용했습니다.
+그리고 모델과 loss, 최적화방법을 선언합시다. 0이면 가짜, 1이면 진짜, 두가지 경우를 구분하는 것이므로 loss는 BCELoss로 했습니다. 또한 Optimizer는 Adam을 사용했습니다.
 
 ```python
 def train_discriminator(discriminator, x, real_labels, fake_images, fake_labels, y):
@@ -158,7 +159,7 @@ def train_generator(generator, discriminator_outputs, real_labels, y):
     return g_loss
 ```
 
-Discriminator와 Generator를 학습시키는 방법을 정의합니다. Discriminator는 진짜 데이터를 보고 이것이 진짜인지 가짜인지 판단을 하고 거기서 loss가 발생합니다. 그 다음 가짜 데이터를 보고 이것이 진짜인지 가짜인지를 판단하고 이과정에서 또한 loss가 발생합니다. 이후 이 두 loss를 합한다음 역전파시키고 parameter들을 업데이트합니다.
+Discriminator와 Generator를 학습시키는 방법을 정의합니다. Discriminator는 진짜 데이터를 보고 이것이 진짜인지 가짜인지 판단을 합니다. 그 과정에서 loss가 발생하겠죠? 또한 가짜 데이터를 보고도 이것이 진짜인지 가짜인지를 판단을 합니다. 이과정에서 발생한 loss와 이전에 구한 loss를 더합니다. 이후 합친 loss를 역전파시키고 parameter들을 업데이트합니다.
 
 Generator는 가짜데이터를 만들어낸다음, Discriminator에 전달해 Discriminator의 판단을 기준으로 loss를 구하고 역전파, 업데이트합니다.
 
@@ -196,7 +197,7 @@ for it in range(120000):
     # Discriminator 학습
     d_loss, real_score, fake_score = train_discriminator(discriminator, X, real_labels,\
                                                          fake_images, fake_labels,y)
-
+    # minibatch x 100의 noise를 무작위로 뽑습니다
     z = Variable(torch.randn(100, 100))
     fake_images = generator(z, y)
     outputs = discriminator(fake_images, y)
@@ -204,7 +205,7 @@ for it in range(120000):
     g_loss = train_generator(generator, outputs, real_labels, y)
     # 100번마다 결과를 출력합니다
     # 임의로 9개의 noise를 뽑고,
-    # 1~9까지를 one-hot encoding한다음 concat합니다
+    # 1~9까지를 one-hot encoding한다음 위에서 만든 noise와 concat합니다
     if (it+1) % 100 == 0:
         z = Variable(torch.randn(9, 100))
         c = np.eye(9, dtype='float32')
@@ -252,7 +253,7 @@ Generator.eval()
 <br>
 이었습니다.
 
-이제 마지막과정입니다. 이번 글의 목표는 내 핸드폰 번호를 MNIST를 통해 만들어내는 것이었으므로 이제 condtion에 내 번호를 넣어주고, 이를 noise와 함께 넣어주기만 하면 됩니다.
+이제 마지막과정입니다. 이번 글의 목표는 핸드폰 번호를 MNIST를 통해 만들어내는 것이었으므로 이제 condition에 번호를 넣어주고, 이를 noise와 합치기만 하면 됩니다.
 
 ```python
 c = np.zeros([8,10]) # 010은 빼고 8자리만 하겠습니다.
@@ -270,7 +271,7 @@ c[7, 6] = 1
 ```python
 generator.train()
 ```
-을 해주면 다시 Dropout을 적용할 수 있습니다. 이렇게하면 실행시킬 때마다 다른 결과를 얻을 수 있습니다.
+을 해주면 다시 Dropout을 적용할 수 있습니다. 이렇게하면 실행시킬 때마다 다른 결과를 얻을 수 있습니다. 만약 eval한 상태 그대로 밑의 코드를 실행할 경우, 위에서 얻은 1~9의 최종 결과물과와 똑같은 숫자들을 얻게 됩니다.
 ```python
 num_test_samples = 16
 size_figure_grid = int(math.sqrt(num_test_samples))
