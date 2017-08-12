@@ -8,7 +8,7 @@
 <br>
 <br>
 #### 들어가며
-지난 시간 우리는 Conditional GAN과 DCGAN의 개념을 정리한 후, MNIST 데이터를 통해 Conditional GAN의 예제 코드를 살펴보았습니다. 오늘은 DCGAN의 코드 구현에 대해 살펴보려고 합니다. [Pytorch 깃허브 ](https://github.com/pytorch/examples)에 올라온 [DCGAN 예제 코드](https://github.com/pytorch/examples/tree/master/dcgan)를 사용하였습니다. 앞에 parser 부분을 제외한다면 100줄 조금 넘는 간단한 코드입니다. 데이터 셋으로는 원래 [LFW](http://vis-www.cs.umass.edu/lfw/)를 사용하려고 했는데요. 이름 모를 외국인 분들 이미지를 사용하는 것 보다 조금 더 재밌는 결과물을 만들어보고 싶어 한국 여자 연예인 50명의 이미지를 7,000여장 수집해보았습니다. 결과적으로 이미지 전처리하는 데 시간이 많이 걸려 모델을 제대로 씹고 뜯고 맛보지 못하지 않았나, 아쉬움이 남습니다..
+지난 시간 우리는 Conditional GAN과 DCGAN의 개념을 정리한 후, MNIST 데이터를 통해 Conditional GAN의 예제 코드를 살펴보았습니다. 오늘은 DCGAN의 코드 구현에 대해 살펴보려고 합니다. [Pytorch 깃허브 ](https://github.com/pytorch/examples) 에 올라온 [DCGAN 예제 코드](https://github.com/pytorch/examples/tree/master/dcgan) 를 사용하였습니다. 앞에 parser 부분을 제외한다면 100줄 조금 넘는 간단한 코드입니다. 데이터 셋으로는 원래 [LFW](http://vis-www.cs.umass.edu/lfw/) 를 사용하려고 했는데요. 이름 모를 외국인 분들 이미지를 사용하는 것 보다 조금 더 재밌는 결과물을 만들어보고 싶어 한국 여자 연예인 50명의 이미지를 7,000여장 수집해보았습니다. 결과적으로 이미지 전처리하는 데 시간이 많이 걸려 모델을 제대로 씹고 뜯고 맛보지 못하지 않았나, 아쉬움이 남습니다..
 <br>
 
 ---
@@ -16,7 +16,7 @@
 #### 0. 데이터 수집 및 가공
 먼저, 크롬 웹스토어에 있는 이미지 일괄 다운로더를 통해 대용량의 이미지를 한 번에 다운받았습니다. 얼굴이 작게 나온 사진, 마이크나 기타 물체가 얼굴을 가리고 있는 사진, 얼굴이 측면으로 나온 사진 등을 배제하기 위해 노력했습니다.(이 부분은 어쩔 수 없이 사람의 손으로 해결해야 하는 부분입니다..) 그럼에도 불구하고 측면 사진 등 적절치 못한 데이터들이 꽤 많이 저장되긴 했습니다.
 
-이후 구글 클라우드 Vision API를 사용하여 얼굴 부분만 잘라낸 뒤 64*64 사이즈의 이미지로 저장하였습니다. 구글 클라우드 플랫폼에서는 컴퓨팅 엔진 뿐만이 아니라 Vision, Natural Language, Speech 등 여러 분야에 대한 API를 제공하고 있으며, 첫 가입 시 $300 상당의 크레딧을 제공합니다. Vision API 사용법과 관련해서는 [이 블로그](http://twinw.tistory.com/199)를 참고하였습니다.
+이후 구글 클라우드 Vision API를 사용하여 얼굴 부분만 잘라낸 뒤 64*64 사이즈의 이미지로 저장하였습니다. 구글 클라우드 플랫폼에서는 컴퓨팅 엔진 뿐만이 아니라 Vision, Natural Language, Speech 등 여러 분야에 대한 API를 제공하고 있으며, 첫 가입 시 $300 상당의 크레딧을 제공합니다. Vision API 사용법과 관련해서는 [이 블로그](http://twinw.tistory.com/199) 를 참고하였습니다.
 <br>
 
 ---
@@ -31,7 +31,7 @@
 - **CUDA** 8.0
 - **Pytorch** 0.1.12
 
-개발 환경 구축 후 본격적으로 코드를 돌리는 데 CUDA Runtime Error (30)가 발생하였습니다. 에러코드에 Unknown Error라고 써있었는데요, Pytorch [깃허브 이슈](https://www.google.co.kr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwikptfUuM_VAhUKjZQKHUIzDQMQFggsMAE&url=https%3A%2F%2Fgithub.com%2Fpytorch%2Fpytorch%2Fissues%2F631&usg=AFQjCNE7s24OhFPinfGhoFZzTL61fuEKgQ)를 보니 컴퓨터를 껐다 키면 마법처럼 다시 정상작동한다는 이야기를 보고 인스턴스를 reboot 해봤으나 소용이 없었습니다. 결국 CUDA와 Pytorch 모두 재설치했더니 문제가 해결되었습니다.
+개발 환경 구축 후 본격적으로 코드를 돌리는 데 CUDA Runtime Error (30)가 발생하였습니다. 에러코드에 Unknown Error라고 써있었는데요, Pytorch [깃허브 이슈](https://www.google.co.kr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwikptfUuM_VAhUKjZQKHUIzDQMQFggsMAE&url=https%3A%2F%2Fgithub.com%2Fpytorch%2Fpytorch%2Fissues%2F631&usg=AFQjCNE7s24OhFPinfGhoFZzTL61fuEKgQ) 를 보니 컴퓨터를 껐다 키면 마법처럼 다시 정상작동한다는 이야기를 보고 인스턴스를 reboot 해봤으나 소용이 없었습니다. 결국 CUDA와 Pytorch 모두 재설치했더니 문제가 해결되었습니다.
 <br>
 
 ---
@@ -39,6 +39,7 @@
 #### 2. 코드 분석
 
 **1) 데이터 정의**
+
 먼저 ImageFolder를 활용해 하위 디렉토리의 모든 이미지를 불러왔습니다. 각 RGB채널을 평균, 표준편차를 각각 0.5로 두고 표준화를 진행합니다. 대체 왜 그러는지는 아직도 의문입니다..
 ~~~python
 des_dir = "./korCeleb64/"
@@ -57,6 +58,7 @@ dataloader = torch.utils.data.DataLoader(dataset,
 <br>
 
 **2) 하이퍼 파라미터 및 상수 정의**
+
 모델을 돌리기 위한 하이퍼 파라미터 및 상수를 정의내립니다.
 ~~~python
 nz     = 100      # dimension of noise vector
@@ -76,6 +78,7 @@ outf = "./celebA_result/"
 <br>
 
 **3) 파라미터 초기화**
+
 밑에서 확인하겠지만, DCGAN의 레이어에는 Convolution(혹은 Convolution transpose), Batch Normalization 두 가지 종류가 있습니다. 각각 레이어를 어떻게 초기화 할 지 함수를 통해 정의합니다.
 ~~~python
 def weights_init(m):
@@ -89,6 +92,7 @@ def weights_init(m):
 <br>
 
 **4) 모델링**
+
 먼저 Generator 모델입니다.
 <a href="http://imgur.com/H61p6qd"><img src="http://i.imgur.com/H61p6qd.png" title="source: imgur.com" /></a>
 출처: [DCGAN in Tensorflow](https://github.com/carpedm20/DCGAN-tensorflow)
