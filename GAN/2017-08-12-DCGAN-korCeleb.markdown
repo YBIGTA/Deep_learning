@@ -7,7 +7,9 @@
 
 <br>
 <br>
+
 #### 들어가며
+
 지난 시간 우리는 Conditional GAN과 DCGAN의 개념을 정리한 후, MNIST 데이터를 통해 Conditional GAN의 예제 코드를 살펴보았습니다. 오늘은 DCGAN의 코드 구현에 대해 살펴보려고 합니다. [Pytorch 깃허브 ](https://github.com/pytorch/examples) 에 올라온 [DCGAN 예제 코드](https://github.com/pytorch/examples/tree/master/dcgan) 를 사용하였습니다. 앞에 parser 부분을 제외한다면 100줄 조금 넘는 간단한 코드입니다. 데이터 셋으로는 원래 [LFW](http://vis-www.cs.umass.edu/lfw/) 를 사용하려고 했는데요. 이름 모를 외국인 분들 이미지를 사용하는 것 보다 조금 더 재밌는 결과물을 만들어보고 싶어 한국 여자 연예인 50명의 이미지를 7,000여장 수집해보았습니다. 결과적으로 이미지 전처리하는 데 시간이 많이 걸려 모델을 제대로 씹고 뜯고 맛보지 못하지 않았나, 아쉬움이 남습니다..
 <br>
 
@@ -362,10 +364,13 @@ Discriminator에게 이미지를 넣어서 학습시키면 이 이미지가 진�
 200 에폭씩 학습을 진행했는데도 눈코입이 제 자리를 찾지 못한다거나 전반적인 얼굴 형태가 아예 잡히지 않는 이미지들이 상당히 많습니다. 이는 데이터 양이 절대적으로 부족하며, 그나마 있는 데이터들의 퀄리티가 좋지 않기 때문으로 생각됩니다. 퀄리티가 좋지 않다는 것은 사람의 얼굴 각도가 이미지별로 천차만별이며, 측면에서 찍힌 사진, 눈 감고 찍힌 사진 등 부적절한 이미지들이 꽤 남아있다는 점에서 비롯됩니다. 괜히 연구자들이 검증된 데이터셋을 사용하는 게 아니었군요. (문서 맨 처음에 업로드 된 이미지는 괜찮은 것만 모아놓은 이미지였습니다..) Latent Space Analysis도 진행해보고 싶었으나, 적절한 주제가 떠오르지 않아 생략하였습니다. 모델이 생성한 다른 이미지들을 업로드하며 문서를 마치고자 합니다.
 
 <a href="http://imgur.com/yuyLcIy"><img src="http://i.imgur.com/yuyLcIy.png" title="source: imgur.com" /></a>
+
 <span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">Neuro-celeb 200 epoch example1 </span>
 
 <a href="http://imgur.com/0msShNI"><img src="http://i.imgur.com/0msShNI.png" title="source: imgur.com" /></a>
+
 <span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">Neuro-celeb 200 epoch example2 </span>
 
 <a href="http://imgur.com/cWYWUJh"><img src="http://i.imgur.com/cWYWUJh.png" title="source: imgur.com" /></a>
+
 <span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">CelebA mini-set (15000 imgs) 200 epoch example2 </span>
