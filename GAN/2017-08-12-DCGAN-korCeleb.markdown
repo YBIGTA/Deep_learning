@@ -373,4 +373,4 @@ Discriminator에게 이미지를 넣어서 학습시키면 이 이미지가 진�
 
 <a href="http://imgur.com/cWYWUJh"><img src="http://i.imgur.com/cWYWUJh.png" title="source: imgur.com" /></a>
 
-<span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">CelebA mini-set (15000 imgs) 200 epoch example2 </span>
+<span style="color:#7C7877; font-family: 'Apple SD Gothic Neo'; font-weight:200">CelebA mini-set (15000 imgs) 200 epoch example </span>
