@@ -17,7 +17,15 @@ Input으로 사용된 variable들은 3가지 historical variable 입니다. 1번
 
 WSAEs-LSTM는 3단계로 구성 되어 있습니다. 1.Wave Trasnformation, 2.SAE, 3.LSTM 입니다. Wave Transformation을 통해 time series 데이터의 noise를 제거합니다. 그 후 SAE를 통하여 feature를 생성한 뒤, 그 feature들을 이용하여 LSTM을 한 단계 미래의 주가를 예측하도록 트레이닝 합니다.
 
-## Wave Transformation
+## Wave Transform
 
-Wave Transformation은 non-stationary한 financial data의 노이즈를 제거하기 위해서 사용 됩니다. non-stationary하다는 말은 데이터의 특정 값의 발생 확률 값이 고정되어 있는 값이 아니고, 시간에 따라서 변할 수 있다는 의미 입니다. 주가 데이터의 경우 특정 가격이 되는 확률이 지속적으로 변하는 값으로서 non-stationary한 데이터라고 할 수 있습니다. wave transformation의 중요한 장점 중 하나는 fourier transform에 비해서 시간에 따라서 주파수 성분을 분석 할 수 있다는 점 입니다. fouriere transform은 특정 구간의 파형이 어떠한 주파수 성분으로 이루어져 있는지를 분석 한다는 점에서 wave transformation과 다른 점이라 할 수 있습니다.
+Wave Transformation은 non-stationary한 financial data의 노이즈를 제거하기 위해서 사용 됩니다. non-stationary하다는 말은 데이터의 특정 값의 발생 확률 값이 고정되어 있는 값이 아니고, 시간에 따라서 변할 수 있다는 의미 입니다. 주가 데이터의 경우 특정 가격이 되는 확률이 지속적으로 변하는 값으로서 non-stationary한 데이터라고 할 수 있습니다. wave transformation의 중요한 장점 중 하나는 fourier transform에 비해서 시간에 따라서 주파수 성분을 분석 할 수 있다는 점 입니다. fouriere transform은 특정 구간의 파형이 어떠한 주파수 성분으로 이루어져 있는지를 분석 한다는 점에서 wave transform과 다른 점이라 할 수 있습니다.
+
+여기서는 **Harr** Function을 wave transform의 basis function으로 사용 하였습니다. **Harr** function은 time series data를 cost efficiency하게 분해 할 수 있습니다. Computation complexity는 O(n)입니다. 
+
+
+
+
+
+
 
