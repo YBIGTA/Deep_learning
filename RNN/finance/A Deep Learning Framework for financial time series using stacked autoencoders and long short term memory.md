@@ -9,5 +9,7 @@
 
 주가 시장 예측은 EMH(Efficient of Market Hypothesis)를 따르기에, 주가 시장의 효율성이 예측에 영향을 미칠 수 밖에 없습니다. 이러한 문제를 해결 하기 위해서 중국, 인도의 index를 발전 하고 있는 시장으로 정의하고, 미국의 index를 발전 된 시장으로 정의 하여 각각에 모델을 검증 함으로서 모델의 유용성을 확인 했습니다. 
 
-Input으로 사용된 feature들은 3가지 historical variable 입니다. 1번째로는 **주가 거래 history** 입니다. 시작가, 최고가, 최저가, 종가(OHLC) 입니다. 2번째로는 주가 데이터의 **기술적인 indicator**입니다. 이 두가지는 일반적으로 많이 사용되는 variable입니다. 이 논문에서는 주가적으로 **macroeconmic(거시경제적)** 데이터도 variable로 사용했습니다. 이들은 거시경제적 데이터를 variable로 사용함으로서 deep learning이 invariant하고 abstract한 feature들을 만들거라고 기대하고 사용 하였습니다.
+Input으로 사용된 variable들은 3가지 historical variable 입니다. 1번째로는 **주가 거래 history** 입니다. 시작가, 최고가, 최저가, 종가(OHLC) 입니다. 2번째로는 주가 데이터의 **기술적인 indicator**입니다. 이 두가지는 일반적으로 많이 사용되는 variable입니다. 이 논문에서는 주가적으로 **macroeconmic(거시경제적)** 데이터도 variable로 사용했습니다. 이들은 거시경제적 데이터를 variable로 사용함으로서 **deep learning이 invariant하고 abstract한 feature들을 만들거라고 기대**하고 사용 하였습니다.
+
+모델의 성능의 2가지 면에서 측정 되었습니다. 정확성과 수익성입니다. 정확성은 **MAPE(Mean Absolute Percentage Error)** 와 **Correlation(R)** 그리고 **Theil's inequaility coefficient(Theil U)** 로 측정되었습니다. 수익성은 subsection predictive method를 사용하여 예측된 수익성을 기반으로 사고 파는 방법을 통해 모델을 운용하여 이에 따른 수익성을 측정 방법으로 사용하였습니다. 수익성의 경우 기존에 사용되는 간단한 방법인 buy and hold 방법론을 적용한 것도 측정 했습니다. 결론적으로는 WSAEs-LSTM 방식이 기존 방법론에 비해 월등한 성능을 갖는걸로 측정 되었습니다.
 
