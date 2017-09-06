@@ -13,3 +13,11 @@ Input으로 사용된 variable들은 3가지 historical variable 입니다. 1번
 
 모델의 성능의 2가지 면에서 측정 되었습니다. 정확성과 수익성입니다. 정확성은 **MAPE(Mean Absolute Percentage Error)** 와 **Correlation(R)** 그리고 **Theil's inequaility coefficient(Theil U)** 로 측정되었습니다. 수익성은 subsection predictive method를 사용하여 예측된 수익성을 기반으로 사고 파는 방법을 통해 모델을 운용하여 이에 따른 수익성을 측정 방법으로 사용하였습니다. 수익성의 경우 기존에 사용되는 간단한 방법인 buy and hold 방법론을 적용한 것도 측정 했습니다. 결론적으로는 WSAEs-LSTM 방식이 기존 방법론에 비해 월등한 성능을 갖는걸로 측정 되었습니다.
 
+# Methodology
+
+WSAEs-LSTM는 3단계로 구성 되어 있습니다. 1.Wave Trasnformation, 2.SAE, 3.LSTM 입니다. Wave Transformation을 통해 time series 데이터의 noise를 제거합니다. 그 후 SAE를 통하여 feature를 생성한 뒤, 그 feature들을 이용하여 LSTM을 한 단계 미래의 주가를 예측하도록 트레이닝 합니다.
+
+## Wave Transformation
+
+Wave Transformation은 non-stationary한 financial data의 노이즈를 제거하기 위해서 사용 됩니다. non-stationary하다는 말은 데이터의 특정 값의 발생 확률 값이 고정되어 있는 값이 아니고, 시간에 따라서 변할 수 있다는 의미 입니다. 주가 데이터의 경우 특정 가격이 되는 확률이 지속적으로 변하는 값으로서 non-stationary한 데이터라고 할 수 있습니다. wave transformation의 중요한 장점 중 하나는 fourier transform에 비해서 시간에 따라서 주파수 성분을 분석 할 수 있다는 점 입니다. fouriere transform은 특정 구간의 파형이 어떠한 주파수 성분으로 이루어져 있는지를 분석 한다는 점에서 wave transformation과 다른 점이라 할 수 있습니다.
+
