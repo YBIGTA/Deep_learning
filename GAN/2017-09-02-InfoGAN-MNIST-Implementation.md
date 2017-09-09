@@ -394,10 +394,10 @@ for epoch in range(niter):
 
 <a href="https://imgur.com/zbCEYuG"><img src="https://i.imgur.com/zbCEYuG.png" title="source: imgur.com" /></a>
 
-### Unrecognizable Latent Code Variation - Variation with c2(continuos code)
+### Unrecognizable Latent Code Variation - Variation with c2(continuous code)
 
 <a href="https://imgur.com/K6VXoPy"><img src="https://i.imgur.com/K6VXoPy.png" title="source: imgur.com" /></a>
 
-### Slope Variation - Variation with c3(continous code)
+### Slope Variation - Variation with c3(continuous code)
 
 <a href="https://imgur.com/KuzCXPj"><img src="https://i.imgur.com/KuzCXPj.png" title="source: imgur.com" /></a>
