@@ -38,7 +38,9 @@ wavelet transform을 적용하면 아래와 같은 결과를 얻게 됩니다.
 
 hidden layer의 depth가 생성되는 feature의 품질을 가로 짓게 됩니다. 여기서는 5 depth의 hidden layer을 사용 하였습니다.
 
+## Long Short Term Memory(LSTM)
 
+LSTM을 이용하여 종가(closed price)를 예측하였습니다. Hidden Layer는 5개 delay는 4를 사용 하였습니다. 이 값들은 try-error를 통해 얻어졌습니다.
 
 
 
