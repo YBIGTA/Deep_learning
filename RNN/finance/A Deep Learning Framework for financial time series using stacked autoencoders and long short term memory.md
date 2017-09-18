@@ -26,8 +26,17 @@ Wave Transformation은 non-stationary한 financial data의 노이즈를 제거�
 추가적으로 financial time series data를 high frequency와 low frequency의 basis function의 합으로 구성하였습니다. 한개의 low frequency basis function과 여러개의 high frequency basis function을 통해서 rough한 time series data를 가공하였습니다. 주가 데이터는 워낙 rough하여 여기서는 wavelet transform을 2번 적용하여 가공을 하였습니다.
 
 wavelet transform을 적용하면 아래와 같은 결과를 얻게 됩니다.
-자세한 설명은 이 논문에서 참조한 http://aip.scitation.org/doi/pdf/10.1063/1.4887692 을 보면 됩니다.
+자세한 설명은 이 논문에서 참조한 [A study of stationarity in time series by using wavelet transform](http://aip.scitation.org/doi/pdf/10.1063/1.4887692) 을 보면 됩니다.
 ![wavelet transform](https://www.nag.co.uk/images/fig_wavelet_jpy-nzd-01.jpg)
+
+
+## Stacked AutoEncoder
+
+딥러닝 모델의 좋은 점은 deep한 feature을 생성 할 수 있다는 점입니다. 이 논문에서는 **OHLC**와 **techinical indicator**을 variable로 이용하여 **Stacked AutoEncoder**를 적용, **feature**들을 생성 하였습니다.
+
+**Stacked AutoEncoder**의 구성은 AutoEncoder의 hidden layer을 여러층을 쌓는 방식 입니다. AutoEncoder의 output layer인 reconstruction layer가 다시 AutoEncoder의 input layer로 구성되는 방식 입니다. 
+
+hidden layer의 depth가 생성되는 feature의 품질을 가로 짓게 됩니다. 여기서는 5 depth의 hidden layer을 사용 하였습니다.
 
 
 
