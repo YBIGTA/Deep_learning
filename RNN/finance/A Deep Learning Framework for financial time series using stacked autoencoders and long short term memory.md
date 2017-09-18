@@ -23,6 +23,10 @@ Wave Transformation은 non-stationary한 financial data의 노이즈를 제거�
 
 여기서는 **Harr** Function을 wave transform의 basis function으로 사용 하였습니다. **Harr** function은 time series data를 cost efficiency하게 분해 할 수 있습니다. Computation complexity는 O(n)입니다. 
 
+추가적으로 financial time series data를 high frequency와 low frequency의 basis function의 합으로 구성하였습니다. 한개의 low frequency basis function과 여러개의 high frequency basis function을 통해서 rough한 time series data를 가공하였습니다. 주가 데이터는 워낙 rough하여 여기서는 wavelet transform을 2번 적용하여 가공을 하였습니다.
+
+
+
 
 
 
