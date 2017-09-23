@@ -7,7 +7,7 @@
 
 지난 시간, 우리는 DiscoGAN 논문 리뷰와 GAN을 통한 Colorization 구현에 대해 살펴보았습니다. 오늘 살펴볼 모델은 BEGAN 입니다. BEGAN은 올해 3월 구글이 발표한 논문, BEGAN: Boundary Equilibrium Generative Adversarial Networks에서 제안된 모델입니다. 최근 GAN팀이 살펴본 내용이 원 데이터의 transfer에 가까운 내용이었다면, 오늘 살펴볼 BEGAN은 고품질의 데이터 생성과 안정적인 학습에 초점이 맞춰져있는 모델입니다. 결과물부터 공유하자면 아래와 같습니다.
 <div style="text-align:center"><figure><img src="https://4.bp.blogspot.com/-QfgccPH6_m0/WONBDxjjtJI/AAAAAAAABh0/lpxaxGzZcwYKKqraNfTweTplKvL0zlSsgCK4B/s1600/began_1.PNG"></img></figure></div>
->BEGAN으로 생성된 이미지
+> BEGAN으로 생성된 이미지
 
 
 <br></br>
@@ -15,11 +15,11 @@
 <br></br>
 <div style="text-align:center"><figure><img src="https://raw.githubusercontent.com/carpedm20/DCGAN-tensorflow/master/assets/result_16_01_04_.png"><figcaption></figcaption></img></figure></div>
 <font color="gray"></font>
->DCGAN으로 생성된 이미지
+> DCGAN으로 생성된 이미지
 
 <br></br>
 <div style="text-align:center"><figure><img src="http://1.bp.blogspot.com/-QfuB07sp1I4/WONC6coa43I/AAAAAAAABig/hdFEweUOaEcKRsMaiEpllOmSdGQ0VZIGwCK4B/s1600/began_1_1.PNG"><figcaption><font color="gray"></font></figcaption></img></figure></div style="text-align:center">
->EBGAN 결과물과의 비교
+> EBGAN 결과물과의 비교
 <br></br>
 
 생성되는 이미지 퀄리티 자체가 비약적으로 발전했다고 느껴지는데요, 본격적으로 BEGAN의 논문에 대해 살펴보겠습니다.
