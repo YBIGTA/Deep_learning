@@ -1,7 +1,7 @@
 
 # BEGAN: Boundary Equilibrium Generative Adversarial Networks
 
----
+
 
 ### 0. 들어가며
 
