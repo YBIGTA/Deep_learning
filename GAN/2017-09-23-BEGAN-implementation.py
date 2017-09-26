@@ -1,3 +1,9 @@
+"""
+code references
+https://github.com/carpedm20/BEGAN-pytorch
+https://github.com/hwalsuklee/tensorflow-generative-model-collections
+"""
+
 import torch
 from torch import nn
 from torch.autograd import Variable
