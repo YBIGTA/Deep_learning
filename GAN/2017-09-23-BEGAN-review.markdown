@@ -162,7 +162,7 @@ GAN에서는 두 가지 loss가 사용됩니다. 기본적으로 제로섬게임
 
 구현중인 코드를 [GAN팀 깃허브](https://github.com/YBIGTA/Deep_learning/blob/master/GAN/2017-09-23-BEGAN-implementation.py)에 올려두었습니다.
 
-개인적으로 InfoGAN에 비해서 코드 구현 자체는 수월했습니다. Parameter를 공유한다든가 뭔가 Pytorch에서 구현하기 불편한 테크닉들이 사용되지는 않아서 그런 것 같습니다. 다만, 학습은 실패했습니다... 데이터는 지난 번에 사용했던 한국 여자 연예인 이미지 데이터를 사용했는데요. 아래는 15000 step 학습했을 때 이미지입니다.
+개인적으로 InfoGAN에 비해서 코드 구현 자체는 수월했습니다.(물론 [이활석님의 텐서플로 구현](https://github.com/hwalsuklee/tensorflow-generative-model-collections)과 [김태훈님의 파이토치 구현](https://github.com/carpedm20/BEGAN-pytorch)을 참고했기 때문에...) Parameter를 공유한다든지 Pytorch에서 구현하기 불편한 테크닉들이 적기도 했습니다. 물론, 학습은 실패했습니다... 데이터는 지난 번에 사용했던 한국 여자 연예인 이미지 데이터를 사용했는데요. 아래는 15000 step 학습했을 때 이미지입니다.
 
 <div style="text-align:center"><figure><a href="https://imgur.com/kt9ODMC"><img src="https://i.imgur.com/kt9ODMC.png" title="source: imgur.com" /></a></figure></div>
 
