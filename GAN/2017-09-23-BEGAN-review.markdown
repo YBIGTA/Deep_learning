@@ -170,7 +170,7 @@ GAN에서는 두 가지 loss가 사용됩니다. 기본적으로 제로섬게임
 
 ##### 17.09.29 update
 <a href="https://imgur.com/tKFk1mq"><img src="https://i.imgur.com/tKFk1mq.png" title="source: imgur.com" /></a>
-> 약 30000 step 학습한 
+> 약 30000 step 학습한 결과
 
 ---
 
