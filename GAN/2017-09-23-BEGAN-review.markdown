@@ -10,7 +10,7 @@
 
 > BEGAN으로 생성된 이미지
 
-
+<br></br>
 비교를 위해 다른 GAN 모델의 결과물과 비교하자면 아래와 같습니다.
 
 <div style="text-align:center"><figure><img src="https://raw.githubusercontent.com/carpedm20/DCGAN-tensorflow/master/assets/result_16_01_04_.png"><figcaption></figcaption></img></figure></div>
