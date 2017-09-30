@@ -10,22 +10,20 @@
 
 > BEGAN으로 생성된 이미지
 
-<br></br>
+
 비교를 위해 다른 GAN 모델의 결과물과 비교하자면 아래와 같습니다.
-<br></br>
+
 <div style="text-align:center"><figure><img src="https://raw.githubusercontent.com/carpedm20/DCGAN-tensorflow/master/assets/result_16_01_04_.png"><figcaption></figcaption></img></figure></div>
 <font color="gray"></font>
 
 > DCGAN으로 생성된 이미지
 
-<br></br>
+
 <div style="text-align:center"><figure><img src="http://1.bp.blogspot.com/-QfuB07sp1I4/WONC6coa43I/AAAAAAAABig/hdFEweUOaEcKRsMaiEpllOmSdGQ0VZIGwCK4B/s1600/began_1_1.PNG"><figcaption><font color="gray"></font></figcaption></img></figure></div style="text-align:center">
 
 > EBGAN 결과물과의 비교
 
-<br></br>
-
-생성 이미지의 퀄리티 자체가 비약적으로 발전했다고 느껴지는데요, 본격적으로 BEGAN의 논문에 대해 살펴보겠습니다.
+개인적으로 이미지 생성 퀄리티가 비약적으로 발전했다고 생각합니다. 본격적으로 BEGAN의 논문에 대해 살펴보겠습니다.
 
 ---
 ### 1. Introduction
