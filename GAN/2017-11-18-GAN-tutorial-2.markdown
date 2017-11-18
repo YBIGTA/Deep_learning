@@ -2,7 +2,7 @@
 title: "[GAN] 1D Gaussian Distribution Generation"
 layout: post
 date: 2017-11-18 15:10
-image: /assets/images/170721-first-gan/background.png
+image: assets/images/170721-first-gan/background.png
 headerImage: false
 tag:
 - gan
@@ -41,7 +41,7 @@ GAN이 상당히 어려워 보이지만, 그 원리는 누구나 이해할 수 �
 NIPS2016에서 저자인 Ian Goodfellow가 발표한 내용에 따르면, GAN은 다음과 같은 상황에서 매우 뛰어난 성능을 보여준다고 합니다.
 
 
-![Why GAN?](/assets/images/2017-07-23-GAN-tutorial-1/why-gan.png)
+![Why GAN?](assets/images/2017-07-23-GAN-tutorial-1/why-gan.png)
 
 
 가장 핵심은, GAN은 기존의 머신러닝 기법과 같이 원데이터의 분포(모집단)에 대해 직접적으로 알아내고 분석한다기보다는, 원데이터와 최대한 비슷한 sample을 만들어내는 데에만 목표를 둔다는 점입니다. 따라서 원데이터가 매우 복잡하고 고차원이거나, 결측치가 많거나, 원데이터가 무한히 많을 때 좋은 성능을 보여줍니다. 그 예로, 원데이터를 파악하기 불가능한 예술의 분야를 들 수 있죠.
@@ -60,7 +60,7 @@ conda install -c peterjc123 pytorch=0.1.12
 ## Workflow
 코드의 workflow는 다음과 같습니다.
 
-![workflow](/assets/images/2017-07-23-GAN-tutorial-1/code-workflow.jpg)
+![workflow](assets/images/2017-07-23-GAN-tutorial-1/code-workflow.jpg)
 #### Generator
 먼저 Generator의 입장에서 말하자면, 입력값은 0과 1사이의 임의의 값이고, 이를 노이즈를 줘서 fake sample을 만들어 Discriminator에게 보내게 됩니다. 후에, Discriminator의 반응에 따라 신경망을 최적화하는데, 즉 어떤 sample에 대해서는 1(real)이라 반응했다 / 어떤 sample은 0(fake)이라 반응했다 의 여부에 따라 Generator가 최적화되는 것입니다. 인상깊은 점은 **Generator는 sample이 실제로 real sample인지 fake sample인지 모릅니다!** 다만 Discriminator가 어떻게 평가했는지의 여부만 보고 최적화하는 것입니다.
 
