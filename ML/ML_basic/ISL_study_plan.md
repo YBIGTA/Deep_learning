@@ -1,7 +1,7 @@
 ﻿An Introduction to Statistical Learning( ISL스터디 )
 ===================
 
-![image1] (https://user-images.githubusercontent.com/31824102/34483251-91784b44-f000-11e7-948e-33812f81956b.PNG)
+![image] (https://user-images.githubusercontent.com/31824102/34483251-91784b44-f000-11e7-948e-33812f81956b.PNG)
 
 [TOC]
 
