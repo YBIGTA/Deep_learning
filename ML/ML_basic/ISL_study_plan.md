@@ -32,9 +32,6 @@ PREFACE VII
 
 2.4 EXERCISES . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
 
-IX
-X CONTENTS
-3 LINEAR REGRESSION 59
 3.1 SIMPLE LINEAR REGRESSION . . . . . . . . . . . . . . . . . . . 61
 3.2 MULTIPLE LINEAR REGRESSION . . . . . . . . . . . . . . . . . . 71
 3.3 OTHER CONSIDERATIONS IN THE REGRESSION MODEL . . . . . . . . 82
