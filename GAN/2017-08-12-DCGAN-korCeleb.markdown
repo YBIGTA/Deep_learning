@@ -1,4 +1,4 @@
-# Neuro-celeb: 인공신경망이 만드는 여자 연예인 얼굴
+# DCGAN with Faces of Korean Celebrities
 작성자: YBIGTA 10기 김지중
 
 <br>
